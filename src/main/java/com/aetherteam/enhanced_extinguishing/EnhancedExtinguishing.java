@@ -3,7 +3,6 @@ package com.aetherteam.enhanced_extinguishing;
 import com.aetherteam.enhanced_extinguishing.block.ExtinguishingBlocks;
 import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingBlockStateData;
 import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingLanguageData;
-import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingLootTableData;
 import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingRecipeData;
 import com.aetherteam.enhanced_extinguishing.data.generators.tags.ExtinguishingBlockTagData;
 import com.mojang.logging.LogUtils;
@@ -65,7 +64,6 @@ public class EnhancedExtinguishing {
 
         // Server Data
         generator.addProvider(event.includeServer(), new ExtinguishingRecipeData(packOutput));
-        generator.addProvider(event.includeServer(), ExtinguishingLootTableData.create(packOutput));
         generator.addProvider(event.includeServer(), new ExtinguishingBlockTagData(packOutput, lookupProvider, fileHelper));
 
         // pack.mcmeta

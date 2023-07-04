@@ -20,6 +20,11 @@ public class ExtinguishedTorchBlock extends Block {
     }
 
     @Override
+    public String getDescriptionId() {
+        return Blocks.TORCH.getDescriptionId();
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return AABB;
     }
