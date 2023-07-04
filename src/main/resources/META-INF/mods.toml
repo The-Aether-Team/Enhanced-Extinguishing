@@ -5,12 +5,10 @@ license = "Assets: All Rights Reserved; Code: LGPL-3.0"
 [[mods]]
 modId = "aether_enhanced_extinguishing"
 version = "${file.jarVersion}"
-displayName = "The Aether: Enhanced Extinguishing"
-credits = "The Aether Team, former Aether Team Collaborators for their prior work on The Aether Mod, GitHub contributors for their additional help, and C4 for Curios API, the source code of which can be found at https://github.com/TheIllusiveC4/Curios"
+displayName = "Enhanced Extinguishing"
+credits = "The Aether Team"
 authors = "bconlon"
-description = '''
-    WIP
-'''
+description = '''Improves the consistency of fire being disallowed in the Aether by adding new extinguished variants of blocks.'''
 
 [[dependencies.aether_enhanced_extinguishing]]
 modId = "forge"

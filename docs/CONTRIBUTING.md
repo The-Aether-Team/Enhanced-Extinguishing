@@ -1,10 +1,10 @@
-# Contributing to The Aether: Enhanced Extinguishing
+# Contributing to Enhanced Extinguishing
 ## Getting started for programmers
 1. Install the latest 64-bit version of OpenJDK 17. Check out [Adoptium](https://adoptium.net/) for the relevant JDK build for your OS.
 
 2. Install the latest 64-bit version of Git, which can be found on the [Git website](https://git-scm.com/).
 
-3. Fork The Aether: Enhanced Extinguishing repository with the [fork](https://github.com/Gilded-Games/Enhanced-Extinguishing/fork) button in the top right of GitHub.
+3. Fork the Enhanced Extinguishing repository with the [fork](https://github.com/Gilded-Games/Enhanced-Extinguishing/fork) button in the top right of GitHub.
 
 4. We recommend to use [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/) for contributions. Other IDEs may work but any issues or roadblocks will not receive support.
 
@@ -26,14 +26,14 @@
 
 10. Start developing!
 
-If you have any questions or issues, or would just like to discuss The Aether: Enhanced Extinguishing's development, feel free to [join us on Discord](https://discord.gg/aethermod).
+If you have any questions or issues, or would just like to discuss Enhanced Extinguishing's development, feel free to [join us on Discord](https://discord.gg/aethermod).
 
 ## Writing commits
 If you are looking to commit to your fork and don't know how, make sure to read up on your relevant Git tutorial.
 
-Once you're ready to commit, there are some things to know about our commit styling. The Aether: Enhanced Extinguishing makes uses of conventional commits. To understand this, we recommend you read up on [Semantic Versioning](https://github.com/Gilded-Games/.github/blob/main/references/VERSIONING.md) first, and then our [Conventional Commit](https://github.com/Gilded-Games/.github/blob/main/references/COMMITS.md) standards.
+Once you're ready to commit, there are some things to know about our commit styling. Enhanced Extinguishing makes uses of conventional commits. To understand this, we recommend you read up on [Semantic Versioning](https://github.com/Gilded-Games/.github/blob/main/references/VERSIONING.md) first, and then our [Conventional Commit](https://github.com/Gilded-Games/.github/blob/main/references/COMMITS.md) standards.
 
-It is important to use conventional commits because The Aether: Enhanced Extinguishing's workflow depends on them for code review and changelogs. Not using it makes management of contributions more difficult.
+It is important to use conventional commits because Enhanced Extinguishing's workflow depends on them for code review and changelogs. Not using it makes management of contributions more difficult.
 
 It is also important to understand semantic versioning as we recommend avoiding breaking changes, and also avoiding anything that could lead to future breaking changes being made.
 
