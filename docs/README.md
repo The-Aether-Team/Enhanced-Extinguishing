@@ -1,4 +1,4 @@
-# The Aether: Genesis
+# The Aether: Enhanced Extinguishing
 
 *Work in progress...*
 
@@ -102,11 +102,3 @@ If you're wanting to create a gameplay video/review, extension or addon, parody,
 If you are thinking about using The Aether: Genesis' project code or assets, please note our licensing. **All assets of The Aether: Genesis are unlicensed and all rights are reserved to them by The Aether Team and their respective authors.** The source code of The Aether: Genesis mod is under the LGPL v3.0 license.
 
 If you have a reason that you wish to use our brand or any unlicensed material, please [get in contact with Oz#1986 on the Aether Community Discord](https://discord.gg/aethermod) for details.
-
-## :star2: Special mentions
-### :speech_balloon: Translations
-
-*Work in progress...*
-
-### :hammer: Contributions
-All of our code contribution credits can be found [here](https://github.com/The-Aether-Team/The-Aether-Genesis/blob/1.19.4-develop/docs/CREDITS.txt). If you contributed to the project and do not see your name, please contact us.
