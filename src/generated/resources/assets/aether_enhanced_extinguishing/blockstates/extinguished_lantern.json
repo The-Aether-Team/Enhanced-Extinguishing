@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_lantern"
+    },
+    "hanging=true": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_hanging_lantern"
+    }
+  }
+}

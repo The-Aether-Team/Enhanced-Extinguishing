@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_wall_torch"
+    },
+    "facing=north": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "aether_enhanced_extinguishing:block/extinguished_wall_torch",
+      "y": 180
+    }
+  }
+}

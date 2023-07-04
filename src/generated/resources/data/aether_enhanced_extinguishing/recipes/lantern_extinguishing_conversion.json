@@ -1,0 +1,10 @@
+{
+  "type": "aether:placement_conversion",
+  "biome": "#aether:ultracold",
+  "ingredient": {
+    "block": "minecraft:lantern"
+  },
+  "result": {
+    "block": "aether_enhanced_extinguishing:extinguished_lantern"
+  }
+}

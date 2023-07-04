@@ -1,0 +1,38 @@
+darksonic300
+- Improvement of the Tempest class to extend the Zephyr class.
+- Improvement of Thunderballs to have particles.
+
+KELETU66666
+- Implementation of food items.
+- Implementation of Skyroot Crafting Table.
+- Implementation of Holystone Furnace.
+- Implementation of Skyroot Chest.
+- Implementation of Holystone decorative bricks.
+- Implementation of Tempests.
+- Implementation of Phoenix Dart Shooter
+- Implementation of Crystal EXP Bottle.
+- Implementation of Bone Ring.
+- Implementation of Candy Ring.
+- Implementation of Skyroot Ring.
+- Implementation of Continuum Bomb.
+- Implementation of dungeon blocks.
+- Implementation of Skyroot Chest Mimic.
+- Implementation of Battle Sentry.
+- Implementation of Tracking Golem.
+- Implementation of Sentry Guardian.
+- Implementation of Slider Host Mimic.
+- Implementation of Labyrinth Eye.
+
+StockiesLad
+- Improvement of Purple Aercloud features to make them spawn with random rotation.
+
+sunsette
+- Compression of aether1_lowpitch, aether6, aether_night1, and aether_night2.
+
+Zepalesque
+- Implementation of a custom music manager for nighttime tracks.
+- Implementation of the bounce sound for Blue Aerclouds.
+- Implementation of Tempest sound events.
+- Improvements to Tempest code and behavior.
+- Improvements to Blue Aercloud sound.
+- Fixes to Tempest texture.

@@ -1,0 +1,37 @@
+version: 2.1
+
+orbs:
+  gradle: circleci/gradle@3.0.0
+
+parameters:
+  artifact-name:
+    type: string
+    default: aether_enhanced_extinguishing
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-2204:2023.02.1
+    resource_class: medium
+    environment:
+      _JAVA_OPTIONS: -Xmx3200m
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.logging.level=info
+    steps:
+      - setup
+      - persist_to_workspace:
+          root: ~/project/build/libs
+          paths:
+            - << pipeline.parameters.artifact-name >>-*.jar
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - run: gradle build --console=plain
+      - store_artifacts:
+          path: ~/project/build/libs
+
+workflows:
+  build:
+    jobs:
+      - build
