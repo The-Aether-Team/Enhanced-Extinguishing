@@ -11,7 +11,7 @@ on:
       remote_name:
         description: 'GitHub name of the fork repository'
         required: true
-        default: 'The-Aether-Genesis'
+        default: 'The-Aether-Enhanced-Extinguishing'
         type: string
       remote_branch:
         description: 'GitHub branch that the pull request is merging from'
