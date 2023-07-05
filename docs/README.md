@@ -100,8 +100,8 @@ Not sure what to help with? Take a look at our issue tracker for some ideas! [He
 [![Asset license (Unlicensed)](https://img.shields.io/badge/assets%20license-All%20Rights%20Reserved-red.svg?style=flat-square)](https://en.wikipedia.org/wiki/All_rights_reserved)
 [![Code license (LGPL v3.0)](https://img.shields.io/badge/code%20license-LGPL%20v3.0-green.svg?style=flat-square)](https://github.com/The-Aether-Team/Enhanced-Extinguishing/blob/1.19.4-develop/LICENSE.txt)
 
-If you're wanting to create a gameplay video/review, extension or addon, parody, or any other fan work of your own for Enhanced-Extinguishing, go for it! We love seeing the content our community creates, and we hope to make it as welcoming as possible for everyone. We ask however that you please don't advertise using our brand (our specific logo assets, team name, official social media posts).
+If you're wanting to create a gameplay video/review, extension or addon, parody, or any other fan work of your own for Enhanced Extinguishing, go for it! We love seeing the content our community creates, and we hope to make it as welcoming as possible for everyone. We ask however that you please don't advertise using our brand (our specific logo assets, team name, official social media posts).
 
-If you are thinking about using Enhanced-Extinguishing' project code or assets, please note our licensing. **All assets of Enhanced-Extinguishing are unlicensed and all rights are reserved to them by The Aether Team and their respective authors.** The source code of Enhanced-Extinguishing mod is under the LGPL v3.0 license.
+If you are thinking about using Enhanced Extinguishing' project code or assets, please note our licensing. **All assets of Enhanced Extinguishing are unlicensed and all rights are reserved to them by The Aether Team and their respective authors.** The source code of Enhanced Extinguishing mod is under the LGPL v3.0 license.
 
 If you have a reason that you wish to use our brand or any unlicensed material, please [get in contact with Oz#1986 on the Aether Community Discord](https://discord.gg/aethermod) for details.
