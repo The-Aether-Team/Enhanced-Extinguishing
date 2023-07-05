@@ -179,6 +179,6 @@ modrinth {
     gameVersions = ["${project.mc_version}"]
     loaders = ["forge"]
     dependencies {
-        required.project "aether", "${project.aether_version}"
+        required.version "aether", "${project.aether_version}"
     }
 }
