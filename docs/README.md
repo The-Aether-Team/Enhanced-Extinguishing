@@ -1,6 +1,8 @@
 # Enhanced Extinguishing
 
-*Work in progress...*
+The Enhanced Extinguishing addon changes how placing Torches and Lanterns works in the Aether dimension. It removes the normal mechanic of disallowing their placement, and instead makes it so that placing these blocks will convert them into extinguished variants: the Extinguished Torch and Extinguished Lantern, respectively.
+
+These two blocks resemble their lit counterparts, but both appear to have their flame extinguished and give off no light. This change makes placing these blocks more consistent with the behavior of other blocks in the Aether like Campfires and Candles, which convert to an unlit state. Similarly, breaking the Extinguished Torch and Extinguished Lantern will return their lit counterpart, just like Candles.
 
 ## :heart: Support The Aether Team
 
