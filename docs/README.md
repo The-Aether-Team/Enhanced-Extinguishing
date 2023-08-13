@@ -107,6 +107,6 @@ Not sure what to help with? Take a look at our issue tracker for some ideas! [He
 
 If you're wanting to create a gameplay video/review, extension or addon, parody, or any other fan work of your own for Enhanced Extinguishing, go for it! We love seeing the content our community creates, and we hope to make it as welcoming as possible for everyone. We ask however that you please don't advertise using our brand (our specific logo assets, team name, official social media posts).
 
-If you are thinking about using Enhanced Extinguishing' project code or assets, please note our licensing. **All assets of Enhanced Extinguishing are unlicensed and all rights are reserved to them by The Aether Team and their respective authors.** The source code of Enhanced Extinguishing mod is under the LGPL v3.0 license.
+If you are thinking about using Enhanced Extinguishing's project code or assets, please note our licensing. **All assets of Enhanced Extinguishing are unlicensed and all rights are reserved to them by The Aether Team and their respective authors.** The source code of Enhanced Extinguishing is under the LGPL v3.0 license.
 
 If you have a reason that you wish to use our brand or any unlicensed material, please [get in contact with Oz#1986 on the Aether Community Discord](https://discord.gg/aethermod) for details.
