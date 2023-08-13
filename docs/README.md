@@ -26,9 +26,13 @@ If you're interested in sponsoring Enhanced Extinguishing or The Aether Team, pl
 
 ## :package: Download the latest releases
 [![Modloader: Forge](https://img.shields.io/badge/mod%20loader-forge-CC974D?style=flat-square)](https://files.minecraftforge.net/net/minecraftforge/forge/)
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/FDrEl7QY?color=00AF5C&logo=modrinth)](https://modrinth.com/mod/aether-enhanced-extinguishing)
+[![Modrinth Version](https://img.shields.io/modrinth/game-versions/FDrEl7QY?color=00AF5C&label=latest&logo=modrinth&last=true)](https://modrinth.com/mod/aether-enhanced-extinguishing)
+[![CurseForge Downloads](http://cf.way2muchnoise.eu/884860.svg)](https://www.curseforge.com/minecraft/mc-mods/aether-enhanced-extinguishing)
+[![CurseForge Version](http://cf.way2muchnoise.eu/versions/884860_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/aether-enhanced-extinguishing)
 [![CircleCI](https://circleci.com/gh/The-Aether-Team/Enhanced-Extinguishing/tree/1.19.4-develop.svg?style=shield)](https://app.circleci.com/pipelines/github/The-Aether-Team/Enhanced-Extinguishing?branch=1.19.4-develop)
 ### Release builds
-Enhanced Extinguishing has no stable release builds for the latest version of Minecraft just yet, but this mod is in active development so keep an eye out for its eventual release.
+Enhanced Extinguished has stable release builds available on [Modrinth](https://modrinth.com/mod/aether-enhanced-extinguishing) and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/aether-enhanced-extinguishing).
 
 ### Bleeding edge builds
 If you’re feeling a bit more adventurous or wish to help test the in-development versions, we provide **bleeding edge builds** which are produced on [CircleCI](https://app.circleci.com/pipelines/github/The-Aether-Team/Enhanced-Extinguishing). These builds are created for every new commit and contain the latest available code. We do not recommend users treat these builds as releases, as they are unfinished and may contain serious issues. If you wish to download these builds, check out [this guide](https://github.com/The-Aether-Team/The-Aether/wiki/CircleCI-Guide).
