@@ -1,8 +1,9 @@
 package com.aetherteam.enhanced_extinguishing.data.providers;
 
 import com.aetherteam.aether.recipe.AetherRecipeSerializers;
-import com.aetherteam.aether.recipe.BlockStateIngredient;
-import com.aetherteam.aether.recipe.builder.*;
+import com.aetherteam.aether.recipe.builder.BiomeParameterRecipeBuilder;
+import com.aetherteam.nitrogen.recipe.BlockStateIngredient;
+import com.aetherteam.nitrogen.recipe.builder.BlockStateRecipeBuilder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;

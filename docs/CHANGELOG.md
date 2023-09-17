@@ -1,3 +1,7 @@
+# Enhanced Extinguishing - Forge - 1.0.0-1.20.1
+
+- Port to 1.20.1.
+
 # Enhanced Extinguishing - Forge - 1.0.0-1.19.4
 
 - Add Extinguished Torch, which is created by placing a Torch in the Aether dimension.
