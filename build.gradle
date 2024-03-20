@@ -1,10 +1,7 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '[1,2)'
-    id 'org.moddingx.modgradle.mapping' version '[4,5)'
-    id 'org.moddingx.modgradle.sourcejar' version '[4,5)' apply false
+    id 'net.neoforged.gradle.userdev' version '7.0.+'
     id 'io.github.0ffz.github-packages' version '[1,2)'
     id 'com.matthewprenger.cursegradle' version '[1.4,1.5)'
     id 'com.modrinth.minotaur' version '[2,3)'
@@ -19,47 +16,30 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-apply plugin: 'org.moddingx.modgradle.sourcejar'
+runs {
+    configureEach {
+        workingDirectory project.file('run')
+        systemProperty "${mod_id}.iside", 'true'
+        systemProperty  'forge.logging.console.level', 'info'
 
-minecraft {
-    mappings channel: 'sugarcane', version: project.mappings
+        modSource project.sourceSets.main
+    }
 
-    copyIdeResources = true
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    client {
+        systemProperty 'forge.enabledGameTestNamespaces', mod_id
+    }
 
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', mod_id
+        programArgument '--nogui'
+    }
 
-            property "${mod_id}.iside", 'true'
-            property 'forge.logging.console.level', 'info'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+    gameTestServer {
+        systemProperty 'forge.enabledGameTestNamespaces', mod_id
+    }
 
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing', file('src/generated/resources/'), '--existing-mod', 'nitrogen_internals',  '--existing-mod', 'aether'
-            environment 'target', 'fmluserdevdata'
-        }
+    data {
+        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath(), '--existing-mod', 'nitrogen_internals',  '--existing-mod', 'aether'
     }
 }
 
@@ -67,12 +47,19 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
-dependencies {
-    minecraft "net.neoforged:forge:${project.mc_version}-${project.neoforge_version}"
+subsystems {
+    parchment {
+        minecraftVersion = project.mc_version
+        mappingsVersion = project.mappings
+    }
+}
 
-    implementation fg.deobf("com.aetherteam.aether:aether:${project.aether_version}")
-    implementation fg.deobf("com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}")
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}+${project.mc_version}")
+dependencies {
+    implementation "net.neoforged:neoforge:${project.neoforge_version}"
+
+    implementation "com.aetherteam.aether:aether:${project.aether_version}"
+    implementation "com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}"
+    implementation "top.theillusivec4.curios:curios-neoforge:${project.curios_version}+${project.mc_version}"
 }
 
 repositories {
@@ -92,23 +79,24 @@ tasks.named('jar', Jar).configure {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    finalizedBy 'reobfJar'
-}
-
-tasks.named(sourceSets.main.compileJavaTaskName) {
-    outputs.file("${it.temporaryDir}/${it.name}-refmap.json").withPropertyName("mixin refmap")
 }
 
 compileJava {
     options.incremental = false
 }
 
+tasks.register('sourceJar', Jar) {
+    dependsOn 'classes'
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId project.archivesBaseName
-            artifact jar
-            artifact sourceJar
+            artifact project.jar
+            artifact project.sourceJar
         }
     }
     repositories {
@@ -131,6 +119,7 @@ curseforge {
         changelog = file("$rootDir/docs/CHANGELOG.md")
         changelogType = "markdown"
         addGameVersion("${project.mc_version}")
+        addGameVersion("NeoForge")
         mainArtifact(tasks.jar) {
             displayName = "${project.mod_name} - ${version}"
             relations {
@@ -149,7 +138,7 @@ modrinth {
     changelog = new File("$rootDir/docs/CHANGELOG.md").text
     uploadFile = tasks.jar
     gameVersions = ["${project.mc_version}"]
-    loaders = ["forge", "neoforge"]
+    loaders = ["neoforge"]
     dependencies {
         required.version "aether", "${project.aether_version}"
     }

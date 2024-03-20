@@ -4,6 +4,7 @@ import com.aetherteam.aether.recipe.AetherRecipeSerializers;
 import com.aetherteam.aether.recipe.builder.BiomeParameterRecipeBuilder;
 import com.aetherteam.nitrogen.recipe.BlockStateIngredient;
 import com.aetherteam.nitrogen.recipe.builder.BlockStateRecipeBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -11,11 +12,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
+import java.util.concurrent.CompletableFuture;
+
 public abstract class ExtinguishingRecipeProvider extends RecipeProvider {
     private static String ID;
 
-    public ExtinguishingRecipeProvider(PackOutput output, String id) {
-        super(output);
+    public ExtinguishingRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String id) {
+        super(output, lookupProvider);
         ID = id;
     }
 

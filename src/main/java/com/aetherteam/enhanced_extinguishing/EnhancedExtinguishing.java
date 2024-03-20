@@ -13,22 +13,24 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackCompatibility;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.AddPackFindersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.resource.PathPackResources;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -37,19 +39,17 @@ public class EnhancedExtinguishing {
     public static final String MODID = "aether_enhanced_extinguishing";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public EnhancedExtinguishing() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public EnhancedExtinguishing(IEventBus bus, Dist dist) {
         DeferredRegister<?>[] registers = {
                 ExtinguishingBlocks.BLOCKS,
         };
 
         for (DeferredRegister<?> register : registers) {
-            register.register(modEventBus);
+            register.register(bus);
         }
 
-        modEventBus.addListener(this::dataSetup);
-        modEventBus.addListener(this::packSetup);
+        bus.addListener(this::dataSetup);
+        bus.addListener(this::packSetup);
     }
 
     public void dataSetup(GatherDataEvent event) {
@@ -63,7 +63,7 @@ public class EnhancedExtinguishing {
         generator.addProvider(event.includeClient(), new ExtinguishingLanguageData(packOutput));
 
         // Server Data
-        generator.addProvider(event.includeServer(), new ExtinguishingRecipeData(packOutput));
+        generator.addProvider(event.includeServer(), new ExtinguishingRecipeData(packOutput, lookupProvider));
         generator.addProvider(event.includeServer(), new ExtinguishingBlockTagData(packOutput, lookupProvider, fileHelper));
 
         // pack.mcmeta
@@ -81,16 +81,14 @@ public class EnhancedExtinguishing {
     private void setupRecipeOverridePack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
             Path resourcePath = ModList.get().getModFileById(EnhancedExtinguishing.MODID).getFile().findResource("packs/recipe_override");
-            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(EnhancedExtinguishing.MODID).getFile().getFileName() + ":" + resourcePath, true, resourcePath);
             PackMetadataSection metadata = new PackMetadataSection(Component.literal(""), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
             event.addRepositorySource((source) ->
                     source.accept(Pack.create(
                             "builtin/extinguishing_recipe_override",
                             Component.literal(""),
                             true,
-                            (string) -> pack,
-                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), true),
-                            PackType.SERVER_DATA,
+                            new PathPackResources.PathResourcesSupplier(resourcePath, true),
+                            new Pack.Info(metadata.description(), metadata.packFormat(PackType.SERVER_DATA), metadata.packFormat(PackType.CLIENT_RESOURCES), PackCompatibility.COMPATIBLE, FeatureFlagSet.of(), List.of(), true),
                             Pack.Position.TOP,
                             false,
                             PackSource.BUILT_IN)
