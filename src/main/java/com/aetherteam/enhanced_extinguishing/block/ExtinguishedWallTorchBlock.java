@@ -37,7 +37,7 @@ public class ExtinguishedWallTorchBlock extends ExtinguishedTorchBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return Blocks.WALL_TORCH.getCloneItemStack(state, target, level, pos, player);
     }
 

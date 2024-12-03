@@ -2,7 +2,7 @@ package com.aetherteam.enhanced_extinguishing.data.generators;
 
 import com.aetherteam.enhanced_extinguishing.EnhancedExtinguishing;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class ExtinguishingLanguageData extends LanguageProvider {
     public ExtinguishingLanguageData(PackOutput output) {

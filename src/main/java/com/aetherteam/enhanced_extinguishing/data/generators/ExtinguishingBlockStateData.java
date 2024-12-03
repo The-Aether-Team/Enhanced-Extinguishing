@@ -4,7 +4,7 @@ import com.aetherteam.enhanced_extinguishing.EnhancedExtinguishing;
 import com.aetherteam.enhanced_extinguishing.block.ExtinguishingBlocks;
 import com.aetherteam.enhanced_extinguishing.data.providers.ExtinguishingBlockStateProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class ExtinguishingBlockStateData extends ExtinguishingBlockStateProvider {
     public ExtinguishingBlockStateData(PackOutput output, ExistingFileHelper helper) {

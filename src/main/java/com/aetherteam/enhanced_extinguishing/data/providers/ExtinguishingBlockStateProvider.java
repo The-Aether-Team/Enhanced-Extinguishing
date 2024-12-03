@@ -2,15 +2,15 @@ package com.aetherteam.enhanced_extinguishing.data.providers;
 
 import com.aetherteam.enhanced_extinguishing.block.ExtinguishedWallTorchBlock;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LanternBlock;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public abstract class ExtinguishingBlockStateProvider extends BlockStateProvider {
     public ExtinguishingBlockStateProvider(PackOutput output, String id, ExistingFileHelper helper) {
@@ -18,12 +18,7 @@ public abstract class ExtinguishingBlockStateProvider extends BlockStateProvider
     }
 
     public String name(Block block) {
-        ResourceLocation location = ForgeRegistries.BLOCKS.getKey(block);
-        if (location != null) {
-            return location.getPath();
-        } else {
-            throw new IllegalStateException("Unknown block: " + block.toString());
-        }
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 
     public ResourceLocation texture(String name) {

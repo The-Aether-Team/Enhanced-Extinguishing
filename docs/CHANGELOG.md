@@ -1,4 +1,12 @@
-# Enhanced Extinguishing - Forge - 1.0.0-1.20.1
+# Enhanced Extinguishing - NeoForge - 1.0.0-1.20.4
+
+- Port to 1.20.4.
+
+# Enhanced Extinguishing - NeoForge - 1.0.0-1.20.2
+
+- Port to 1.20.2.
+
+# Enhanced Extinguishing - NeoForge - 1.0.0-1.20.1
 
 - Port to 1.20.1.
 
