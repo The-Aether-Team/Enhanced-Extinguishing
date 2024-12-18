@@ -13,6 +13,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
@@ -85,16 +87,12 @@ public class EnhancedExtinguishing {
             Path resourcePath = ModList.get().getModFileById(EnhancedExtinguishing.MODID).getFile().findResource("packs/recipe_override");
             PackMetadataSection metadata = new PackMetadataSection(Component.literal(""), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
             event.addRepositorySource((source) ->
-                    source.accept(Pack.create(
-                            "builtin/extinguishing_recipe_override",
-                            Component.literal(""),
-                            true,
-                            new PathPackResources.PathResourcesSupplier(resourcePath, true),
-                            new Pack.Info(metadata.description(), PackCompatibility.COMPATIBLE, FeatureFlagSet.of(), List.of(), true),
-                            Pack.Position.TOP,
-                            false,
-                            PackSource.BUILT_IN)
-                    ));
+                    source.accept(new Pack(
+                            new PackLocationInfo("builtin/extinguishing_recipe_override", Component.literal(""), PackSource.BUILT_IN, Optional.empty()),
+                            new PathPackResources.PathResourcesSupplier(resourcePath),
+                            new Pack.Metadata(metadata.description(), PackCompatibility.COMPATIBLE, FeatureFlagSet.of(), List.of(), true),
+                            new PackSelectionConfig(true, Pack.Position.TOP, false)
+                    )));
         }
     }
 }

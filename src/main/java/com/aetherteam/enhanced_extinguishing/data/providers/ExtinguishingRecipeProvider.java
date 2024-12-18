@@ -22,7 +22,7 @@ public abstract class ExtinguishingRecipeProvider extends RecipeProvider {
     }
 
     protected static ResourceLocation name(String name) {
-        return new ResourceLocation(ID, name);
+        return ResourceLocation.fromNamespaceAndPath(ID, name);
     }
 
     protected static BiomeParameterRecipeBuilder convertPlacement(Block result, Block ingredient, TagKey<Biome> biome) {
