@@ -28,8 +28,8 @@ public class ExtinguishedTorchBlock extends Block {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        return Blocks.TORCH.getCloneItemStack(state, target, level, pos, player);
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+        return Blocks.TORCH.getCloneItemStack(level, pos, state);
     }
 
     @Override

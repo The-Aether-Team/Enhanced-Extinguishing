@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version "${moddevgradle_version}"
+    id 'fabric-loom' version '1.7-SNAPSHOT'
     id 'io.github.0ffz.github-packages' version '[1,2)'
     id 'com.matthewprenger.cursegradle' version '[1.4,1.5)'
     id 'com.modrinth.minotaur' version '[2,3)'
@@ -13,7 +13,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "${minecraft_version}-${mod_version}-neoforge"
+version = "${minecraft_version}-${mod_version}-fabric"
 group = mod_group
 
 base {
@@ -22,38 +22,7 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-neoForge {
-    version = project.neo_version
-
-    runs {
-        configureEach {
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-            systemProperty 'owo.forceDisableDebug', 'true'
-            logLevel = org.slf4j.event.Level.INFO
-        }
-
-        client {
-            client()
-            systemProperty 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            server()
-            systemProperty 'forge.enabledGameTestNamespaces', mod_id
-            programArgument '--nogui'
-        }
-
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            data()
-            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath(), '--existing-mod', 'aether', '--existing-mod', 'nitrogen_internals'
-        }
-    }
-
+loom {
     mods {
         "${mod_id}" {
             sourceSet(sourceSets.main)
@@ -69,14 +38,26 @@ processResources {
     exclude '.cache/'
 }
 
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
+//configurations {
+//    runtimeClasspath.extendsFrom localRuntime
+//}
 
 dependencies {
-    implementation "com.aetherteam.aether:aether:${project.aether_version}"
-    implementation "com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}"
-    implementation "io.wispforest:accessories-neoforge:${project.accessories_version}+${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${project.property("neogradle.subsystems.parchment.minecraftVersion")}:${project.property("neogradle.subsystems.parchment.mappingsVersion")}@zip")
+    }
+
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modImplementation "com.aetherteam.aether:aether:${project.aether_version}"
+    modImplementation "com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}"
+    modImplementation "io.wispforest:accessories-fabric:${project.accessories_version}+${project.minecraft_version}"
+
+    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_version}")
 }
 
 repositories {
@@ -87,9 +68,11 @@ repositories {
     maven { url = "https://maven.su5ed.dev/releases" }
     maven { url = "https://maven.architectury.dev/" }
     maven githubPackage.invoke("The-Aether-Team/The-Aether")
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
+    maven { url = "https://maven.parchmentmc.org" }
 }
 
-var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             mod_id                 : mod_id,
             mod_name               : mod_name,
@@ -103,18 +86,17 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_description        : mod_description,
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
+            fabric_version         : fabric_version,
+            fabric_version_range   : fabric_version_range,
+            fabric_loader_version_range : fabric_loader_version_range,
             aether_version_range   : aether_version_range
     ]
     inputs.properties replaceProperties
-    expand replaceProperties
-    from "src/main/templates"
-    into "build/generated/sources/modMetadata"
+
+    filesMatching(['fabric.mod.json']) {
+        expand replaceProperties
+    }
 }
-sourceSets.main.resources.srcDir generateModMetadata
-neoForge.ideSyncTask generateModMetadata
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
@@ -135,7 +117,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId project.archivesBaseName
-            artifact project.tasks.jar
+            artifact project.tasks.remapJar
             artifact project.sourceJar
         }
     }

@@ -19,7 +19,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class ExtinguishedWallTorchBlock extends ExtinguishedTorchBlock {
@@ -37,8 +37,8 @@ public class ExtinguishedWallTorchBlock extends ExtinguishedTorchBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        return Blocks.WALL_TORCH.getCloneItemStack(state, target, level, pos, player);
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+        return Blocks.WALL_TORCH.getCloneItemStack(level, pos, state);
     }
 
     @Override

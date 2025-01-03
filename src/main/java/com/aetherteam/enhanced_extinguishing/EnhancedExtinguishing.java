@@ -1,17 +1,12 @@
 package com.aetherteam.enhanced_extinguishing;
 
+import com.aetherteam.aetherfabric.events.AddPackFindersEvent;
+import com.aetherteam.aetherfabric.registries.DeferredRegister;
 import com.aetherteam.enhanced_extinguishing.block.ExtinguishingBlocks;
-import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingBlockStateData;
-import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingLanguageData;
-import com.aetherteam.enhanced_extinguishing.data.generators.ExtinguishingRecipeData;
-import com.aetherteam.enhanced_extinguishing.data.generators.tags.ExtinguishingBlockTagData;
 import com.mojang.logging.LogUtils;
-import net.minecraft.DetectedVersion;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackSelectionConfig;
@@ -21,61 +16,50 @@ import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackCompatibility;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraft.util.InclusiveRange;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.event.AddPackFindersEvent;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
-@Mod(EnhancedExtinguishing.MODID)
-public class EnhancedExtinguishing {
+public class EnhancedExtinguishing implements ModInitializer {
     public static final String MODID = "aether_enhanced_extinguishing";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public EnhancedExtinguishing(IEventBus bus, Dist dist) {
+    public void onInitialize() {
         DeferredRegister<?>[] registers = {
                 ExtinguishingBlocks.BLOCKS,
         };
 
         for (DeferredRegister<?> register : registers) {
-            register.register(bus);
+            register.addEntriesToRegistry();
         }
 
-        bus.addListener(this::dataSetup);
-        bus.addListener(this::packSetup);
+        //bus.addListener(this::dataSetup);
+        AddPackFindersEvent.EVENT.register(this::packSetup);
     }
 
-    public void dataSetup(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper fileHelper = event.getExistingFileHelper();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        PackOutput packOutput = generator.getPackOutput();
-
-        // Client Data
-        generator.addProvider(event.includeClient(), new ExtinguishingBlockStateData(packOutput, fileHelper));
-        generator.addProvider(event.includeClient(), new ExtinguishingLanguageData(packOutput));
-
-        // Server Data
-        generator.addProvider(event.includeServer(), new ExtinguishingRecipeData(packOutput, lookupProvider));
-        generator.addProvider(event.includeServer(), new ExtinguishingBlockTagData(packOutput, lookupProvider, fileHelper));
-
-        // pack.mcmeta
-        generator.addProvider(true, new PackMetadataGenerator(packOutput).add(PackMetadataSection.TYPE, new PackMetadataSection(
-                Component.translatable("pack.aether_enhanced_extinguishing.mod.description"),
-                DetectedVersion.BUILT_IN.getPackVersion(PackType.SERVER_DATA),
-                Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
-    }
+//    public void dataSetup(GatherDataEvent event) {
+//        DataGenerator generator = event.getGenerator();
+//        ExistingFileHelper fileHelper = event.getExistingFileHelper();
+//        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+//        PackOutput packOutput = generator.getPackOutput();
+//
+//        // Client Data
+//        generator.addProvider(event.includeClient(), new ExtinguishingBlockStateData(packOutput, fileHelper));
+//        generator.addProvider(event.includeClient(), new ExtinguishingLanguageData(packOutput));
+//
+//        // Server Data
+//        generator.addProvider(event.includeServer(), new ExtinguishingRecipeData(packOutput, lookupProvider));
+//        generator.addProvider(event.includeServer(), new ExtinguishingBlockTagData(packOutput, lookupProvider, fileHelper));
+//
+//        // pack.mcmeta
+//        generator.addProvider(true, new PackMetadataGenerator(packOutput).add(PackMetadataSection.TYPE, new PackMetadataSection(
+//                Component.translatable("pack.aether_enhanced_extinguishing.mod.description"),
+//                DetectedVersion.BUILT_IN.getPackVersion(PackType.SERVER_DATA),
+//                Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
+//    }
 
     public void packSetup(AddPackFindersEvent event) {
         // Data Packs
@@ -84,13 +68,13 @@ public class EnhancedExtinguishing {
 
     private void setupRecipeOverridePack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
-            Path resourcePath = ModList.get().getModFileById(EnhancedExtinguishing.MODID).getFile().findResource("packs/recipe_override");
-            PackMetadataSection metadata = new PackMetadataSection(Component.literal(""), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
+            Path resourcePath = FabricLoader.getInstance().getModContainer(EnhancedExtinguishing.MODID).orElseThrow().findPath("packs/recipe_override").orElseThrow();
+            PackMetadataSection metadata = new PackMetadataSection(Component.literal(""), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA), Optional.empty());
             event.addRepositorySource((source) ->
                     source.accept(new Pack(
                             new PackLocationInfo("builtin/extinguishing_recipe_override", Component.literal(""), PackSource.BUILT_IN, Optional.empty()),
                             new PathPackResources.PathResourcesSupplier(resourcePath),
-                            new Pack.Metadata(metadata.description(), PackCompatibility.COMPATIBLE, FeatureFlagSet.of(), List.of(), true),
+                            new Pack.Metadata(metadata.description(), PackCompatibility.COMPATIBLE, FeatureFlagSet.of(), List.of()),
                             new PackSelectionConfig(true, Pack.Position.TOP, false)
                     )));
         }

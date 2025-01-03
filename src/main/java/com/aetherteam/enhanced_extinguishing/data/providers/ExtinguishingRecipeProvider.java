@@ -1,31 +1,31 @@
-package com.aetherteam.enhanced_extinguishing.data.providers;
-
-import com.aetherteam.aether.recipe.builder.BiomeParameterRecipeBuilder;
-import com.aetherteam.aether.recipe.recipes.block.PlacementConversionRecipe;
-import com.aetherteam.nitrogen.recipe.BlockStateIngredient;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
-
-import java.util.concurrent.CompletableFuture;
-
-public abstract class ExtinguishingRecipeProvider extends RecipeProvider {
-    private static String ID;
-
-    public ExtinguishingRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String id) {
-        super(output, lookupProvider);
-        ID = id;
-    }
-
-    protected static ResourceLocation name(String name) {
-        return ResourceLocation.fromNamespaceAndPath(ID, name);
-    }
-
-    protected static BiomeParameterRecipeBuilder convertPlacement(Block result, Block ingredient, TagKey<Biome> biome) {
-        return BiomeParameterRecipeBuilder.recipe(BlockStateIngredient.of(ingredient), result, biome, PlacementConversionRecipe::new);
-    }
-}
+//package com.aetherteam.enhanced_extinguishing.data.providers;
+//
+//import com.aetherteam.aether.recipe.builder.BiomeParameterRecipeBuilder;
+//import com.aetherteam.aether.recipe.recipes.block.PlacementConversionRecipe;
+//import com.aetherteam.nitrogen.recipe.BlockStateIngredient;
+//import net.minecraft.core.HolderLookup;
+//import net.minecraft.data.PackOutput;
+//import net.minecraft.data.recipes.RecipeProvider;
+//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.tags.TagKey;
+//import net.minecraft.world.level.biome.Biome;
+//import net.minecraft.world.level.block.Block;
+//
+//import java.util.concurrent.CompletableFuture;
+//
+//public abstract class ExtinguishingRecipeProvider extends RecipeProvider {
+//    private static String ID;
+//
+//    public ExtinguishingRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String id) {
+//        super(output, lookupProvider);
+//        ID = id;
+//    }
+//
+//    protected static ResourceLocation name(String name) {
+//        return ResourceLocation.fromNamespaceAndPath(ID, name);
+//    }
+//
+//    protected static BiomeParameterRecipeBuilder convertPlacement(Block result, Block ingredient, TagKey<Biome> biome) {
+//        return BiomeParameterRecipeBuilder.recipe(BlockStateIngredient.of(ingredient), result, biome, PlacementConversionRecipe::new);
+//    }
+//}
