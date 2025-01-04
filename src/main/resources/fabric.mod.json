@@ -20,7 +20,12 @@
   "icon": "${mod_id}.png",
   "environment": "*",
   "entrypoints": {
-    "main": []
+    "main": [
+      "com.aetherteam.enhanced_extinguishing.EnhancedExtinguishing"
+    ],
+    "client": [
+      "com.aetherteam.enhanced_extinguishing.EnhancedExtinguishing"
+    ]
   },
   "mixins": [],
   "depends": {

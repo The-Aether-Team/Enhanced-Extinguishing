@@ -4,9 +4,12 @@ import com.aetherteam.aetherfabric.events.AddPackFindersEvent;
 import com.aetherteam.aetherfabric.registries.DeferredRegister;
 import com.aetherteam.enhanced_extinguishing.block.ExtinguishingBlocks;
 import com.mojang.logging.LogUtils;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.*;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackSelectionConfig;
@@ -23,7 +26,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-public class EnhancedExtinguishing implements ModInitializer {
+@EnvironmentInterface(value = EnvType.CLIENT, itf = ClientModInitializer.class)
+public class EnhancedExtinguishing implements ModInitializer, ClientModInitializer {
     public static final String MODID = "aether_enhanced_extinguishing";
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -38,6 +42,12 @@ public class EnhancedExtinguishing implements ModInitializer {
 
         //bus.addListener(this::dataSetup);
         AddPackFindersEvent.EVENT.register(this::packSetup);
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void onInitializeClient() {
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), ExtinguishingBlocks.EXTINGUISHED_TORCH.get(), ExtinguishingBlocks.EXTINGUISHED_WALL_TORCH.get());
     }
 
 //    public void dataSetup(GatherDataEvent event) {
