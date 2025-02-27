@@ -141,7 +141,7 @@ curseforge {
         changelog = file("$rootDir/docs/CHANGELOG.md")
         changelogType = "markdown"
         addGameVersion("${project.minecraft_version}")
-        addGameVersion("NeoForge")
+        addGameVersion("Fabric")
         mainArtifact(tasks.jar) {
             displayName = "${project.mod_name} - ${version}"
             relations {
@@ -160,7 +160,7 @@ modrinth {
     changelog = new File("$rootDir/docs/CHANGELOG.md").text
     uploadFile = tasks.jar
     gameVersions = ["${project.minecraft_version}"]
-    loaders = ["neoforge"]
+    loaders = ["fabric"]
     dependencies {
         required.version "aether", "${project.aether_version}"
     }
