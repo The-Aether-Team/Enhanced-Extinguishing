@@ -142,7 +142,7 @@ curseforge {
         changelogType = "markdown"
         addGameVersion("${project.minecraft_version}")
         addGameVersion("Fabric")
-        mainArtifact(tasks.jar) {
+        mainArtifact(tasks.remapJar) {
             displayName = "${project.mod_name} - ${version}"
             relations {
                 requiredDependency "aether"
@@ -158,7 +158,7 @@ modrinth {
     versionType = "${project.version_type}"
     versionName = "${project.mod_name} - ${version}"
     changelog = new File("$rootDir/docs/CHANGELOG.md").text
-    uploadFile = tasks.jar
+    uploadFile = tasks.remapJar
     gameVersions = ["${project.minecraft_version}"]
     loaders = ["fabric"]
     dependencies {
